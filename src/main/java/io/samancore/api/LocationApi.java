@@ -18,7 +18,7 @@ import jakarta.ws.rs.core.UriInfo;
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.reactive.RestQuery;
 
-@Path("/")
+@Path("")
 public class LocationApi {
 
     @Inject
@@ -57,7 +57,7 @@ public class LocationApi {
     @GET
     @Path("/parish")
     @RolesAllowed({"admin"})
-    public PageData<Parish> getAllParish(@RestQuery("label__regex") String searchValue, @RestQuery("label__parentid") Long parentId) {
+    public PageData<Parish> getAllParish(@RestQuery("label__regex") String searchValue, @RestQuery("parent_id") Long parentId) {
         log.debug("StateApi.getAllParish");
         var pageRequest = PageUtil.getPage(uriInfo.getQueryParameters());
         return parishService.getPageByLabelAndParentId(searchValue, parentId, pageRequest);
