@@ -24,7 +24,7 @@ public class ParishRepositoryPanache implements PanacheRepository<ParishEntity>,
     Logger log;
 
     @Override
-    public PageData<ParishEntity> getPageByLabel(String label, Long parentId, PageRequest pageRequest) {
+    public PageData<ParishEntity> getPageByLabelAndParentId(String label, Long parentId, PageRequest pageRequest) {
         log.debugf("ParishRepositoryPanache.getPageByLabel %s", label);
 
         String search = "%" + label + "%";
@@ -38,13 +38,13 @@ public class ParishRepositoryPanache implements PanacheRepository<ParishEntity>,
             params.put("municipalityId", parentId);
             var result = LIKE_LABEL + AND + FILTER_GENERAL_STATUS + AND + FILTER_MUNICIPALITY_ID;
             query = this.find(result, PagePanacheUtil.generateSort(pageRequest), params);
-        } else if (label != null && parentId == null) {
+        } else if (parentId == null && label != null ) {
             params.put("name", search);
             var result = LIKE_LABEL + AND + FILTER_GENERAL_STATUS;
             query = this.find(result, PagePanacheUtil.generateSort(pageRequest), params);
-        } else if (label == null && parentId != null) {
+        } else if ( label == null && parentId != null) {
             params.put("municipalityId", parentId);
-            var result = FILTER_STATE_ID + AND + FILTER_GENERAL_STATUS;
+            var result = FILTER_MUNICIPALITY_ID + AND + FILTER_GENERAL_STATUS;
             query = this.find(result, PagePanacheUtil.generateSort(pageRequest), params);
         }else {
             query = this.find(RepositoryConstants.FILTER_GENERAL_STATUS, PagePanacheUtil.generateSort(pageRequest), Map.of(RepositoryConstants.KEY_GENERAL_STATUS, GeneralStatus.ACTIVE));

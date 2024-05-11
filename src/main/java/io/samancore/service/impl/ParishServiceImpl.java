@@ -25,8 +25,8 @@ public class ParishServiceImpl implements ParishService {
 
     @Override
     public PageData<Parish> getPageByLabelAndParentId(String label, Long parentId, PageRequest pageRequest) {
-        log.debugf("ParishServiceImpl.getPageByLabel %s", label);
-        var parishs = repository.getPageByLabel(label, parentId, pageRequest);
-        return PageUtil.toPageModel(parishs, transformer::toModel);
+        log.debugf("ParishServiceImpl.getPageByLabelAndParentId %s %d", label, parentId);
+        var parishes = repository.getPageByLabelAndParentId(label, parentId, pageRequest);
+        return PageUtil.toPageModel(parishes, transformer::toModel);
     }
 }

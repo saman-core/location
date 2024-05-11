@@ -40,7 +40,7 @@ public class LocationApi {
     @Path("/state")
     @RolesAllowed({"admin"})
     public PageData<State> getAllState(@RestQuery("label__regex") String searchValue) {
-        log.debug("StateApi.getAllState");
+        log.debugf("StateApi.getAllMunicipality %s", searchValue);
         var pageRequest = PageUtil.getPage(uriInfo.getQueryParameters());
         return stateService.getPageByLabel(searchValue, pageRequest);
     }
@@ -49,7 +49,7 @@ public class LocationApi {
     @Path("/municipality")
     @RolesAllowed({"admin"})
     public PageData<Municipality> getAllMunicipality(@RestQuery("label__regex") String searchValue, @RestQuery("parent_id") Long parentId) {
-        log.debug("StateApi.getAllMunicipality");
+        log.debugf("StateApi.getAllMunicipality %s %d", searchValue, parentId);
         var pageRequest = PageUtil.getPage(uriInfo.getQueryParameters());
         return municipalityService.getPageByLabelAndParentId(searchValue, parentId, pageRequest);
     }
@@ -58,7 +58,7 @@ public class LocationApi {
     @Path("/parish")
     @RolesAllowed({"admin"})
     public PageData<Parish> getAllParish(@RestQuery("label__regex") String searchValue, @RestQuery("parent_id") Long parentId) {
-        log.debug("StateApi.getAllParish");
+        log.debugf("StateApi.getAllParish %s %d", searchValue, parentId);
         var pageRequest = PageUtil.getPage(uriInfo.getQueryParameters());
         return parishService.getPageByLabelAndParentId(searchValue, parentId, pageRequest);
     }

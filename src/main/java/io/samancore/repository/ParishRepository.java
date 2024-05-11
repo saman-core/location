@@ -6,5 +6,5 @@ import io.samancore.utils.page.PageRequest;
 
 public interface ParishRepository {
 
-    PageData<ParishEntity> getPageByLabel(String label, Long parentId, PageRequest pageRequest);
+    PageData<ParishEntity> getPageByLabelAndParentId(String label, Long parentId, PageRequest pageRequest);
 }
