@@ -3,15 +3,16 @@ package io.samancore.repository.panache;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.samancore.entity.StateEntity;
+import io.samancore.model.PageData;
+import io.samancore.model.type.GeneralStatus;
 import io.samancore.repository.StateRepository;
 import io.samancore.repository.constants.RepositoryConstants;
 import io.samancore.utils.page.PagePanacheUtil;
 import io.samancore.utils.page.PageRequest;
-import io.samancore.model.PageData;
-import io.samancore.model.type.GeneralStatus;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.jboss.logging.Logger;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,5 +42,11 @@ public class StateRepositoryPanache implements PanacheRepository<StateEntity>, S
         var list = query.page(PagePanacheUtil.generatePage(pageRequest)).list();
         var total = query.count();
         return PageData.<StateEntity>newBuilder().setData(list).setCount(total).build();
+    }
+
+    @Override
+    public StateEntity getById(Long id) {
+        log.debugf("StateRepositoryPanache.getById %d", id);
+        return this.findById(id);
     }
 }

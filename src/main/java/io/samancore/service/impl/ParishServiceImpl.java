@@ -1,12 +1,12 @@
 package io.samancore.service.impl;
 
+import io.samancore.model.PageData;
+import io.samancore.model.Parish;
+import io.samancore.repository.ParishRepository;
 import io.samancore.service.ParishService;
 import io.samancore.transformer.ParishTransformer;
-import io.samancore.repository.ParishRepository;
 import io.samancore.utils.page.PageRequest;
 import io.samancore.utils.page.PageUtil;
-import io.samancore.model.Parish;
-import io.samancore.model.PageData;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.jboss.logging.Logger;
@@ -28,5 +28,12 @@ public class ParishServiceImpl implements ParishService {
         log.debugf("ParishServiceImpl.getPageByLabelAndParentId %s %d", label, parentId);
         var parishes = repository.getPageByLabelAndParentId(label, parentId, pageRequest);
         return PageUtil.toPageModel(parishes, transformer::toModel);
+    }
+
+    @Override
+    public Parish getById(Long id) {
+        log.debugf("ParishServiceImpl.getById %d", id);
+        var entity = repository.getById(id);
+        return transformer.toModel(entity);
     }
 }

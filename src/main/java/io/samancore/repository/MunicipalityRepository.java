@@ -7,4 +7,6 @@ import io.samancore.utils.page.PageRequest;
 public interface MunicipalityRepository {
 
     PageData<MunicipalityEntity> getPageByLabel(String label, Long parentId, PageRequest pageRequest);
+
+    MunicipalityEntity getById(Long id);
 }

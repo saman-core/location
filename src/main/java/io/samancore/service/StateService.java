@@ -7,4 +7,6 @@ import io.samancore.utils.page.PageRequest;
 public interface StateService {
 
     PageData<State> getPageByLabel(String label, PageRequest pageRequest);
+
+    State getById(Long id);
 }

@@ -1,9 +1,9 @@
 package io.samancore.entity;
 
 import io.samancore.entity.common.AuditCommon;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import jakarta.persistence.*;
 
 @Entity
 @Getter
