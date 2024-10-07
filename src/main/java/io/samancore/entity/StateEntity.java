@@ -8,7 +8,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "state")
+@Table(name = "state_g")
 public class StateEntity extends AuditCommon {
 
     @Id
