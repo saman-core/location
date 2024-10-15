@@ -11,6 +11,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.jboss.logging.Logger;
 
+import java.util.List;
+
 @ApplicationScoped
 public class ParishServiceImpl implements ParishService {
 
@@ -26,6 +28,8 @@ public class ParishServiceImpl implements ParishService {
     @Override
     public PageData<Parish> getPageByLabelAndParentId(String label, Long parentId, PageRequest pageRequest) {
         log.debugf("ParishServiceImpl.getPageByLabelAndParentId %s %d", label, parentId);
+        if (parentId == null)
+            return PageData.<Parish>newBuilder().setData(List.of()).setCount(0).build();
         var parishes = repository.getPageByLabelAndParentId(label, parentId, pageRequest);
         return PageUtil.toPageModel(parishes, transformer::toModel);
     }

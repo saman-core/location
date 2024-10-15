@@ -11,6 +11,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.jboss.logging.Logger;
 
+import java.util.List;
+
 @ApplicationScoped
 public class MunicipalityServiceImpl implements MunicipalityService {
 
@@ -26,6 +28,8 @@ public class MunicipalityServiceImpl implements MunicipalityService {
     @Override
     public PageData<Municipality> getPageByLabelAndParentId(String label, Long parentId, PageRequest pageRequest) {
         log.debugf("MunicipalityServiceImpl.getPageByLabelAndParentId %s %s", label, parentId);
+        if (parentId == null)
+            return PageData.<Municipality>newBuilder().setData(List.of()).setCount(0).build();
         var municipalities = repository.getPageByLabel(label, parentId, pageRequest);
         return PageUtil.toPageModel(municipalities, transformer::toModel);
     }
